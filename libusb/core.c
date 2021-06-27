@@ -2208,14 +2208,11 @@ int API_EXPORTED libusb_set_option(libusb_context *ctx,
 	}
 
 	ctx = usbi_get_context(ctx);
-	if (NULL == ctx) {
-		return LIBUSB_SUCCESS;
-	}
 
 	switch (option) {
 	case LIBUSB_OPTION_LOG_LEVEL:
 #if defined(ENABLE_LOGGING) && !defined(ENABLE_DEBUG_LOGGING)
-		if (!ctx->debug_fixed)
+		if (ctx && !ctx->debug_fixed)
 			ctx->debug = (enum libusb_log_level)arg;
 #endif
 		break;
